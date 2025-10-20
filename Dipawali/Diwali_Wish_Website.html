@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>शुभ दीपावली — Diwali Wish</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#2b0b2f;
+      --accent:#ffb74d;
+      --accent2:#ff7043;
+      --card:#111522;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family: 'Montserrat', sans-serif;
+      background: radial-gradient( circle at 10% 10%, rgba(255,200,120,0.03), transparent 10%),
+                  linear-gradient(120deg,var(--bg1), var(--bg2));
+      color:#fff; display:flex; align-items:center; justify-content:center; padding:30px;
+      overflow-x:hidden;
+    }
+    .container{
+      width:100%; max-width:980px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px; padding:28px; box-shadow: 0 10px 30px rgba(2,6,23,0.6); position:relative; overflow:hidden;
+      backdrop-filter: blur(6px);
+    }
+
+    /* decorative glowing orbs and stars */
+    .spark{position:absolute; border-radius:50%; filter: blur(30px); opacity:.12}
+    .spark.s1{width:420px;height:420px; background:radial-gradient(circle, #ffc107, #ff7043); top:-140px; left:-120px}
+    .spark.s2{width:300px;height:300px; background:radial-gradient(circle,#7c4dff, #2196f3); right:-120px; bottom:-120px}
+
+    .grid{display:grid; grid-template-columns: 1fr 420px; gap:24px; align-items:center}
+    @media (max-width:880px){.grid{grid-template-columns:1fr} .card-right{order:-1}}
+
+    /* left card */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:22px; border-radius:14px}
+    .title{font-family:'Playfair Display', serif; font-size:36px; margin:0 0 6px; color:var(--accent)}
+    .subtitle{margin:0 0 18px; color:#d7d7e6}
+    .message{
+      font-size:18px; line-height:1.5; color:#f6f2ec; margin-bottom:18px; min-height:80px
+    }
+
+    .controls{display:flex; gap:8px; flex-wrap:wrap}
+    input[type=text]{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff}
+    button{padding:10px 14px; border-radius:10px; border:0; cursor:pointer; font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#3b0b00}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.06); color:#fff}
+
+    /* right area - diya panel */
+    .card-right{display:flex; flex-direction:column; align-items:center; gap:14px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:18px; border-radius:12px}
+    .diya-wrap{width:360px; height:240px; position:relative; overflow:hidden}
+
+    /* diya SVG container */
+    .diya{position:absolute; left:50%; transform:translateX(-50%); bottom:10px; width:180px}
+
+    .footer{display:flex; gap:8px; align-items:center; justify-content:flex-start; margin-top:12px}
+
+    .share{display:inline-flex; gap:8px}
+    .share a{padding:8px 10px; border-radius:8px; text-decoration:none; background:rgba(255,255,255,0.02); color:#fff}
+
+    .credits{font-size:12px; color:#bdbdd6}
+
+    /* twinkle animation for sparkles */
+    .star{position:absolute; width:4px; height:4px; background:white; border-radius:50%; opacity:0; transform:scale(0.5)}
+    .star.twinkle{animation:twinkle 3s linear infinite}
+    @keyframes twinkle{0%{opacity:0; transform:scale(0.4)} 50%{opacity:1; transform:scale(1)} 100%{opacity:0; transform:scale(0.6)}}
+
+    /* greeting highlight */
+    .greet{font-size:20px; padding:12px; border-radius:10px; background:linear-gradient(90deg, rgba(255,183,77,0.08), rgba(255,112,67,0.06)); color:#fff}
+
+    /* decorative floating diya flames */
+    .flame{filter:drop-shadow(0 6px 18px rgba(255,150,30,0.55))}
+    @keyframes flickerFlame {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); filter: brightness(1.2); }
+    }
+    .flame path {
+      animation: flickerFlame 1s infinite ease-in-out;
+    }
+
+    /* subtle floating */
+    .floaty{animation:floaty 6s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+    /* firework animation */
+    .firework {
+      position:absolute;
+      bottom:0;
+      width:4px;
+      height:100px;
+      background:linear-gradient(to top, transparent, #ffeb3b);
+      animation: shoot 3s infinite;
+    }
+    @keyframes shoot {
+      0%{transform:translateY(0);opacity:1}
+      50%{transform:translateY(-200px);opacity:1}
+      100%{transform:translateY(-220px);opacity:0}
+    }
+    .firework::after{
+      content:'';position:absolute;top:-200px;left:-30px;width:60px;height:60px;
+      background:radial-gradient(circle,#ffb74d,#ff7043,transparent 70%);
+      border-radius:50%;opacity:0;animation:explode 3s infinite;
+    }
+    @keyframes explode{
+      0%,60%{opacity:0;transform:scale(0)}
+      70%{opacity:1;transform:scale(1.2)}
+      100%{opacity:0;transform:scale(1.5)}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+
+    <div class="grid">
+      <div class="card">
+        <h1 class="title">शुभ दीपावली</h1>
+        <p class="subtitle">Roshni, pyar aur khushiyon ki bohot saari shubhkaamnayein</p>
+
+        <div id="wishMessage" class="message">✨ दियों की रोशनी से जगमगाए घर आँगन,
+मिठाईयों की मिठास से मीठा हो हर बचपन।
+फुलझड़ियों की खनक और रंगोली की चमक,
+दिवाली की खुशियाँ लाए आपके जीवन में हर दिन नवचमक। ✨
+💥👨‍👩‍👧‍👦 ........ 
+
+<br>
+<br>
+आपको और आपके परिवार को दीपावली की हार्दिक शुभकामनाएँ। ये दीप आपके घर में सुख, समृद्धि और खुशियाँ लेकर आएँ।</div>
+
+        <div class="greet" id="previewGreet">Message for: <strong id="namePreview">सब</strong></div>
+
+        <div style="height:12px"></div>
+
+        <div class="controls">
+          <input id="nameInput" type="text" placeholder="Naam daalein (Enter the Name)" />
+          <button class="btn-primary" id="applyBtn">Preview</button>
+          <button class="btn-ghost" id="resetBtn">Reset</button>
+          <button class="btn-ghost" id="downloadBtn">Download Image</button>
+        </div>
+
+        <div class="footer">
+          <div class="share">
+            <a id="whatsappShare" href="#" target="_blank">Share on WhatsApp</a>
+            <a id="copyLink" href="#">Copy Message</a>
+          </div>
+          <div style="flex:1"></div>
+          <div class="credits">Made with ❤️ — Customize as you like</div>
+        </div>
+      </div>
+
+      <div class="card-right">
+        <div style="font-size:14px; color:#f0e6d9; text-align:center">Light a virtual diya</div>
+        <div class="diya-wrap" id="fireworkContainer">
+          <!-- small stars -->
+          <div class="star twinkle" style="left:18%; top:12%; animation-delay:0s"></div>
+          <div class="star twinkle" style="left:72%; top:6%; animation-delay:0.8s"></div>
+          <div class="star twinkle" style="left:44%; top:28%; animation-delay:0.4s"></div>
+
+          <!-- diya SVG -->
+          <svg class="diya floaty" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0,6)">
+              <!-- base -->
+              <ellipse cx="100" cy="92" rx="76" ry="14" fill="#2b1b05" opacity="0.9"/>
+              <path d="M40 82 C60 54,140 54,160 82 C150 88,50 88,40 82 Z" fill="#5b3c10" />
+              <path d="M60 78 C80 56,120 56,140 78 C130 82,70 82,60 78 Z" fill="#ffcc80" opacity="0.9" />
+
+              <!-- flame -->
+              <g class="flame" transform="translate(100,-10)">
+                <path id="flame1" d="M0 40 C-12 28,-6 8,0 -6 C6 8,12 28,0 40 Z" fill="#ffecb3" opacity="0.95" />
+                <path id="flame2" d="M0 34 C-8 26,-4 12,0 -2 C4 12,8 26,0 34 Z" fill="#ffb74d" opacity="0.95" />
+                <path id="flame3" d="M0 28 C-4 22,-2 14,0 2 C2 14,4 22,0 28 Z" fill="#ff7043" opacity="0.98" />
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div style="font-size:13px; color:#dcd7da; text-align:center">Click <strong>Preview</strong> to personalise. Use <strong>Download</strong> to save.</div>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9999"></canvas>
+
+  <script>
+    // Interactive features
+    const nameInput = document.getElementById('nameInput');
+    const applyBtn = document.getElementById('applyBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const wishMessage = document.getElementById('wishMessage');
+    const namePreview = document.getElementById('namePreview');
+    const whatsappShare = document.getElementById('whatsappShare');
+    const copyLink = document.getElementById('copyLink');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const fireworkContainer = document.getElementById('fireworkContainer');
+
+    function buildMessage(name){
+      if(!name) name = 'Your Name';
+      namePreview.textContent = name;
+      const msg = `${name} — ✨ दियों की रोशनी से जगमगाए घर आँगन,
+मिठाईयों की मिठास से मीठा हो हर बचपन।
+फुलझड़ियों की खनक और रंगोली की चमक,
+दिवाली की खुशियाँ लाए आपके जीवन में हर दिन नवचमक। ✨
+💥👨‍👩‍👧‍👦 ........
+
+आपको और आपके👪 परिवार को दीपावली की हार्दिक शुभकामनाएँ। ये दीप आपके घर में सुख, समृद्धि और खुशियाँ लेकर आएँ।`;
+      wishMessage.textContent = msg;
+      whatsappShare.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+    }
+
+    applyBtn.addEventListener('click', ()=>{
+      buildMessage(nameInput.value.trim());
+      fireConfetti();
+    });
+    resetBtn.addEventListener('click', ()=>{
+      nameInput.value=''; buildMessage('Your Name');
+    });
+
+    copyLink.addEventListener('click', (e)=>{
+      e.preventDefault();
+      navigator.clipboard.writeText(wishMessage.textContent).then(()=>{
+        alert('Message copied to clipboard!');
+      });
+    });
+
+    downloadBtn.addEventListener('click', async ()=>{
+      const domNode = document.querySelector('.container');
+      const rect = domNode.getBoundingClientRect();
+      const xml = `<?xml version="1.0"?>\n` +
+        `<svg xmlns='http://www.w3.org/2000/svg' width='${rect.width}' height='${rect.height}'>`+
+        `<foreignObject width='100%' height='100%'>`+
+        `<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml' style='font-family: Montserrat, sans-serif;'>${domNode.innerHTML}</div>]]>`+
+        `</foreignObject></svg>`;
+      const svg = new Blob([xml],{type:'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svg);
+      const img = new Image();
+      img.onload = function(){
+        const c = document.createElement('canvas'); c.width = rect.width; c.height = rect.height;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = getComputedStyle(document.body).background || '#0b1020';
+        ctx.fillRect(0,0,c.width,c.height);
+        ctx.drawImage(img,0,0);
+        const a = document.createElement('a');
+        a.download = 'diwali_wish.png';
+        a.href = c.toDataURL('image/png');
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = function(){ alert('Download not supported in this browser. Try using Chrome/Edge/Firefox.'); URL.revokeObjectURL(url); };
+      img.src = url;
+    });
+
+    buildMessage('Your Name');
+
+    // Confetti effect
+    function fireConfetti(){
+      const canvas = document.getElementById('confettiCanvas');
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      const ctx = canvas.getContext('2d');
+      const pieces = [];
+      const PI2 = Math.PI*2;
+      const colors = ['#ffcc80','#ffd54f','#ff7043','#ffab91','#ffd180'];
+      for(let i=0;i<120;i++){
+        pieces.push({
+          x: Math.random()*canvas.width,
+          y: -Math.random()*200,
+          vx: (Math.random()-0.5)*6,
+          vy: Math.random()*6+2,
+          r: Math.random()*6+2,
+          c: colors[Math.floor(Math.random()*colors.length)],
+          o: Math.random()*0.8+0.2,
+          rot: Math.random()*PI2,
+          vr: (Math.random()-0.5)*0.2
+        });
+      }
+      let t=0;
+      function frame(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(const p of pieces){
+          p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.rot += p.vr;
+          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+          ctx.globalAlpha = p.o;
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);
+          ctx.restore();
+        }
+        t+=1;
+        if(t<250) requestAnimationFrame(frame); else ctx.clearRect(0,0,canvas.width,canvas.height);
+      }
+      frame();
+    }
+
+    window.addEventListener('resize', ()=>{
+      const c = document.getElementById('confettiCanvas'); c.width = window.innerWidth; c.height = window.innerHeight;
+    });
+
+    // Dynamic fireworks
+    function createFireworks(){
+      for(let i=0;i<6;i++){
+        const fw = document.createElement('div');
+        fw.classList.add('firework');
+        fw.style.left = Math.random()*80 + '%';
+        fw.style.animationDelay = Math.random()*3 + 's';
+        fireworkContainer.appendChild(fw);
+      }
+    }
+    createFireworks();
+
+  </script>
+
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8dcb9b6c37.mp3" type="audio/mpeg">
+  </audio>
+
+</body>
+</html>
